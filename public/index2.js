@@ -5,26 +5,26 @@ var players = [
     {
         id: 0,
         color: 'red',
-        keyLeft: '39',
-        keyRight: '37',
-        posX: 50,
+        keyLeft: '37',
+        keyRight: '39',
+        posX: 130,
         score: 0,
         rightPressed: false,
         leftPressed: false,
-        ballPos: { x: 0, y: 0 },
-        ballDel: { x: 1, y: 1 }
+        ballPos: { x: canvas.width / 2 - 25, y: canvas.height - 30 },
+        ballDel: { x: -2, y: -2 }
     },
     {
         id: 1,
         color: 'blue',
-        keyLeft: '55',
-        keyRight: '56',
-        posX: 10,
+        keyLeft: '65',
+        keyRight: '68',
+        posX: 300,
         score: 0,
         rightPressed: false,
         leftPressed: false,
-        ballPos: { x: 0, y: 0 },
-        ballDel: { x: 1, y: 1 }
+        ballPos: { x: canvas.width / 2 + 25, y: canvas.height - 30 },
+        ballDel: { x: 2, y: -2 }
     }
 ]
 
@@ -97,7 +97,7 @@ function collisionDetection() {
                 var b = bricks[c][r];
                 if (b.status == 1) {
                     if (
-                        players[i].ballPos.x > b.x && players[i].ballPos.x < b.x + brickWidth && players[i].ballPos.y > b.y && players[i].ballPos.y < b.y + brickHeight
+                        players[i].ballPos.x > b.x && players[i].ballPos.x < b.x + brickWidth && players[i].ballPos.y + ballRadius > b.y && players[i].ballPos.y - ballRadius < b.y + brickHeight
                     ) {
                         players[i].ballDel.y *= -1;
                         b.status = 0;
@@ -123,15 +123,15 @@ function draw() {
             players[i].ballPos.x + players[i].ballDel.x < players[i].posX + paddleWidth &&
             players[i].ballPos.x + players[i].ballDel.x > players[i].posX
         )
-            players[i].ballDel.x *= -1;
+            players[i].ballDel.y *= -1;
         else if (players[i].ballPos.y + players[i].ballDel.y < ballRadius) {
-            players[i].ballDel.x *= -1;
+            players[i].ballDel.y *= -1;
         } else if (players[i].ballPos.y + players[i].ballDel.y > canvas.height - ballRadius) {
-            alert(players[i].id + " loss");
+            alert(players[i].color + " loss");
             document.location.reload();
             clearInterval(interval); // Needed for Chrome to end game
         }
-        if (players[i].rightPressed && paddleX < canvas.width - paddleWidth) {
+        if (players[i].rightPressed && players[i].posX < canvas.width - paddleWidth) {
             players[i].posX += 7;
         } else if (players[i].leftPressed && players[i].posX > 0) {
             players[i].posX -= 7;
@@ -142,7 +142,7 @@ function draw() {
     }
 }
 
-var interval = setInterval(draw, 100);
+var interval = setInterval(draw, 10);
 
 
 document.addEventListener("keydown", keyDownHandler, false);
@@ -151,9 +151,9 @@ document.addEventListener("keyup", keyUpHandler, false);
 function keyDownHandler(e) {
     for (var i = 0; i < players.length; i++) {
 
-        if (e.keyCode == players[i].keyLeft) {
+        if (e.keyCode == players[i].keyRight) {
             players[i].rightPressed = true;
-        } else if (e.keyCode == players[i].keyRight) {
+        } else if (e.keyCode == players[i].keyLeft) {
             players[i].leftPressed = true;
         }
     }
@@ -161,9 +161,9 @@ function keyDownHandler(e) {
 function keyUpHandler(e) {
     for (var i = 0; i < players.length; i++) {
 
-        if (e.keyCode == players[i].keyLeft) {
+        if (e.keyCode == players[i].keyRight) {
             players[i].rightPressed = false;
-        } else if (e.keyCode == players[i].keyRight) {
+        } else if (e.keyCode == players[i].keyLeft) {
             players[i].leftPressed = false;
         }
     }

@@ -1,7 +1,7 @@
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 var ballRadius = 10;
-var x = canvas.width / 2;
+var x = canvas.width / 2+50;
 var y = canvas.height - 30;
 var dx = 2;
 var dy = -2;
@@ -53,8 +53,8 @@ function collisionDetection() {
         if (
           x > b.x &&
           x < b.x + brickWidth &&
-          y > b.y &&
-          y < b.y + brickHeight
+          y + ballRadius > b.y &&
+          y - ballRadius< b.y + brickHeight
         ) {
           dy = -dy;
           b.status = 0;
