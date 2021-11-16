@@ -53,6 +53,8 @@ app.get("/get_pos_ball", (req, res) => {
   } else if (req.query.uid == 1) {
     game[req.query.room].b_x = req.query.x;
     game[req.query.room].b_y = req.query.y;
+    game[req.query.room].b_d_x = req.query.dx;
+    game[req.query.room].b_d_y = req.query.dy;
     res.send({
       id: 0,
       x: game[req.query.room].a_x,

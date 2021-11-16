@@ -15,7 +15,7 @@ var players = [
     score: 0,
     rightPressed: false,
     leftPressed: false,
-    ballPos: { x: canvas.width / 2 - 25, y: canvas.height - 30 },
+    ballPos: { x: canvas.width / 2 - 75, y: canvas.height - 30 },
     ballDel: { x: -2, y: -2 },
   },
   {
@@ -290,7 +290,7 @@ httpGetAsync("/startGame?room=" + gameRoom, (test) => {
               score: 0,
               rightPressed: false,
               leftPressed: false,
-              ballPos: { x: canvas.width / 2 - 25, y: canvas.height - 30 },
+              ballPos: { x: canvas.width / 2 - 75, y: canvas.height - 30 },
               ballDel: { x: -2, y: -2 },
             },
             {
